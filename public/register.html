@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Register — CodeAlpha Social</title>
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="/">CodeAlpha Social</a>
+    <nav class="main-nav" id="auth-area"></nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="form-card">
+    <h1>Create your account</h1>
+    <div id="flash"></div>
+    <form id="register-form">
+      <div class="field">
+        <label for="name">Full name</label>
+        <input type="text" id="name" required />
+      </div>
+      <div class="field">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="letters, numbers, underscore" required />
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" required />
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" minlength="6" required />
+      </div>
+      <button class="btn btn-primary btn-block" type="submit">Register</button>
+    </form>
+    <div class="switch-link">Already have an account? <a href="/login.html">Log in</a></div>
+  </div>
+</main>
+
+<script src="/js/api.js"></script>
+<script>
+function flash(type, msg) {
+  qs('#flash').innerHTML = `<div class="flash ${type}">${escapeHtml(msg)}</div>`;
+}
+qs('#register-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const name = qs('#name').value.trim();
+  const username = qs('#username').value.trim();
+  const email = qs('#email').value.trim();
+  const password = qs('#password').value;
+  const { ok, data } = await api.post('/api/register', { name, username, email, password });
+  if (!ok) return flash('error', data.error || 'Registration failed');
+  window.location.href = '/';
+});
+</script>
+</body>
+</html>

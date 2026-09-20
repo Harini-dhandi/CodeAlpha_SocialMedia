@@ -1,0 +1,10 @@
+{
+  "name": "codealpha-social-platform",
+  "version": "1.0.0",
+  "description": "Task 2: Social Media Platform — CodeAlpha Full Stack Development Internship",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "license": "MIT"
+}
